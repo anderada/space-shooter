@@ -13,8 +13,9 @@ public class Player : MonoBehaviour
     public float circleRadius = 2f;
     public int powerupPoints = 5;
     public float powerupRadius = 3f;
+    public float laserLength = 15f;
 
-    public Vector2 velocity;
+    public Vector3 velocity;
     public float maxSpeed = 5f;
     public float accTime = 1f;
     public float decTime = 1f;
@@ -22,7 +23,7 @@ public class Player : MonoBehaviour
     float decPerSec;
 
     void Start(){
-        velocity = new Vector2(0,0);
+        velocity = new Vector3(0,0,0);
         accPerSec = maxSpeed / accTime;
         decPerSec = -maxSpeed / decTime;
     }
@@ -34,17 +35,35 @@ public class Player : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.P)){
             SpawnPowerups(powerupRadius, powerupPoints);
         }
-        pointTowardsMouse();
+        AimLaser();
     }
 
-    public void pointTowardsMouse(){
+    public void AimLaser(){
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector3 mouseDifference = mousePos - transform.position;
-        mouseDifference = mouseDifference.normalized;
-        Debug.DrawLine(transform.position, mousePos, Color.red);
+        mouseDifference.Normalize();
+        
         float theta = Mathf.Atan2(mouseDifference.y, mouseDifference.x) * Mathf.Rad2Deg;
         theta -= 90;
         transform.eulerAngles = new Vector3(0,0,theta);
+
+        if (Input.GetMouseButton(0)) {
+            Vector2 laser = mousePos - transform.position;
+            laser = laser.normalized * laserLength;
+            Vector2 offset = transform.position;
+            StartCoroutine(shootLaser(offset, offset + laser));
+        }
+    }
+
+    IEnumerator shootLaser(Vector2 laserStart, Vector2 laserEnd) {
+        float clock = 0;
+        while (clock < 0.25f)
+        {
+            Debug.DrawLine(laserStart, laserEnd, Color.cyan);
+            clock += Time.deltaTime;
+            yield return null;
+        }
+        
     }
 
     public void PlayerMovement(){
@@ -75,7 +94,7 @@ public class Player : MonoBehaviour
         velocity.x = Mathf.Clamp(velocity.x, -maxSpeed, maxSpeed);
         velocity.y = Mathf.Clamp(velocity.y, -maxSpeed, maxSpeed);
 
-        transform.Translate(velocity);
+        transform.position += velocity * Time.deltaTime;
     }
 
     public void DrawCircle(float radius, int circlePoints){
