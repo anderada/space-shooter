@@ -294,8 +294,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d289fce50a8ffbfad96d8dfb72e8f045, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scale: 0.2
-  location: {x: -14, y: 7.5}
+  scale: 0.3
+  location: {x: -10, y: 5.5}
   worldSize: {x: 36, y: 20}
   playerTransform: {fileID: 2030902520}
   enemyTransform: {fileID: 892270334}
@@ -309,8 +309,8 @@ MonoBehaviour:
   - {fileID: 1621341333}
   - {fileID: 154511008}
   - {fileID: 335762729}
-  asteroidSize: 0.05
-  playerSize: 0.2
+  asteroidSize: 0.2
+  playerSize: 0.4
 --- !u!4 &431624438
 Transform:
   m_ObjectHideFlags: 0

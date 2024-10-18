@@ -51,7 +51,7 @@ public class minimap : MonoBehaviour
 
     public void drawAsteroids(){
         foreach(Transform asteroid in asteroidTransforms){
-            DrawCircle(asteroidSize, 3, (asteroid.position * scale) + new Vector3(location.x, location.y));
+            DrawCircle(asteroidSize, 5, (asteroid.position * scale) + new Vector3(location.x, location.y));
         }
     }
 
