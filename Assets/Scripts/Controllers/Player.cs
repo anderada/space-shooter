@@ -109,7 +109,6 @@ public class Player : MonoBehaviour
             Vector3 c2 = new Vector3(Mathf.Cos((Mathf.PI * 2 / circlePoints) * (i+1))  * radius, Mathf.Sin((Mathf.PI * 2 / circlePoints) * (i+1)) * radius);
             Debug.DrawLine(transform.position + c1, transform.position + c2, circleColor);
         }
-
     }
 
     public void SpawnPowerups(float radius, int circlePoints){
