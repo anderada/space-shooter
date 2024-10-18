@@ -47,7 +47,7 @@ public class Player : MonoBehaviour
         theta -= 90;
         transform.eulerAngles = new Vector3(0,0,theta);
 
-        if (Input.GetMouseButton(0)) {
+        if (Input.GetMouseButtonDown(0)) {
             Vector2 laser = mousePos - transform.position;
             laser = laser.normalized * laserLength;
             Vector2 offset = transform.position;
